@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Kgololosego Moleba | IT Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Sora:wght@300;400;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --bg: #080b10;
+      --bg2: #0d1117;
+      --bg3: #111820;
+      --accent: #00e5a0;
+      --accent2: #0af;
+      --text: #e2e8f0;
+      --muted: #7d8fa8;
+      --border: rgba(0,229,160,0.15);
+      --card: rgba(255,255,255,0.03);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Sora', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* SCROLLBAR */
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 2px; }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1.2rem 4rem;
+      background: rgba(8,11,16,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.9rem;
+      color: var(--accent);
+      letter-spacing: 0.05em;
+    }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      font-size: 0.8rem;
+      color: var(--muted);
+      text-decoration: none;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--accent); }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: flex; align-items: center;
+      padding: 8rem 4rem 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-grid {
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(0,229,160,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,229,160,0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+      mask-image: radial-gradient(ellipse at 50% 50%, black 30%, transparent 80%);
+    }
+    .hero-glow {
+      position: absolute; top: 20%; left: -10%;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(0,229,160,0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-content { position: relative; max-width: 800px; }
+    .hero-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      color: var(--accent);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+      opacity: 0; animation: fadeUp 0.6s 0.2s forwards;
+    }
+    .hero h1 {
+      font-size: clamp(2.8rem, 6vw, 5rem);
+      font-weight: 700;
+      line-height: 1.1;
+      margin-bottom: 1.5rem;
+      opacity: 0; animation: fadeUp 0.6s 0.4s forwards;
+    }
+    .hero h1 span { color: var(--accent); }
+    .hero-sub {
+      font-size: 1.1rem;
+      color: var(--muted);
+      max-width: 520px;
+      margin-bottom: 2.5rem;
+      font-weight: 300;
+      opacity: 0; animation: fadeUp 0.6s 0.6s forwards;
+    }
+    .hero-links {
+      display: flex; gap: 1rem; flex-wrap: wrap;
+      opacity: 0; animation: fadeUp 0.6s 0.8s forwards;
+    }
+    .btn {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.75rem 1.5rem;
+      border-radius: 4px;
+      font-size: 0.85rem;
+      font-family: 'JetBrains Mono', monospace;
+      text-decoration: none;
+      transition: all 0.2s;
+      letter-spacing: 0.05em;
+    }
+    .btn-primary {
+      background: var(--accent);
+      color: var(--bg);
+      font-weight: 700;
+    }
+    .btn-primary:hover { background: #00ffb3; transform: translateY(-2px); }
+    .btn-outline {
+      border: 1px solid var(--border);
+      color: var(--text);
+      background: transparent;
+    }
+    .btn-outline:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+
+    /* SECTIONS */
+    section { padding: 6rem 4rem; max-width: 1100px; margin: 0 auto; }
+    .section-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--accent);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+    }
+    .section-title {
+      font-size: clamp(1.8rem, 3vw, 2.5rem);
+      font-weight: 700;
+      margin-bottom: 3rem;
+      position: relative;
+    }
+    .section-title::after {
+      content: '';
+      display: block;
+      width: 48px; height: 3px;
+      background: var(--accent);
+      margin-top: 0.75rem;
+      border-radius: 2px;
+    }
+
+    /* GITHUB ACCOUNT */
+    .github-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 2rem;
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+    .github-avatar {
+      width: 80px; height: 80px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2rem;
+      flex-shrink: 0;
+    }
+    .github-info h3 { font-size: 1.2rem; margin-bottom: 0.3rem; }
+    .github-info p { color: var(--muted); font-size: 0.9rem; margin-bottom: 0.8rem; }
+    .github-badges { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .badge {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      padding: 0.25rem 0.7rem;
+      border-radius: 100px;
+      background: rgba(0,229,160,0.1);
+      color: var(--accent);
+      border: 1px solid rgba(0,229,160,0.2);
+    }
+
+    /* CV */
+    .cv-preview {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .cv-header {
+      background: var(--bg3);
+      padding: 1rem 1.5rem;
+      display: flex; align-items: center; gap: 0.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .dot { width: 12px; height: 12px; border-radius: 50%; }
+    .dot-red { background: #ff5f57; }
+    .dot-yellow { background: #febc2e; }
+    .dot-green { background: #28c840; }
+    .cv-filename {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-left: 0.5rem;
+    }
+    .cv-body { padding: 2rem; }
+    .cv-body pre {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      color: var(--muted);
+      line-height: 1.8;
+      white-space: pre-wrap;
+    }
+    .cv-body .md-h1 { color: var(--accent); font-size: 1rem; }
+    .cv-body .md-h2 { color: var(--accent2); }
+    .cv-body .md-bold { color: var(--text); }
+    .cv-cta {
+      padding: 1.5rem 2rem;
+      border-top: 1px solid var(--border);
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 1rem;
+    }
+    .cv-cta p { font-size: 0.85rem; color: var(--muted); }
+
+    /* PROJECTS */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 1.5rem;
+    }
+    .project-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.75rem;
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+    .project-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      transform: scaleX(0);
+      transition: transform 0.3s;
+      transform-origin: left;
+    }
+    .project-card:hover { border-color: rgba(0,229,160,0.3); transform: translateY(-4px); }
+    .project-card:hover::before { transform: scaleX(1); }
+    .project-type {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 0.75rem;
+    }
+    .project-card h3 { font-size: 1.05rem; margin-bottom: 0.75rem; }
+    .project-card p { font-size: 0.85rem; color: var(--muted); margin-bottom: 1.25rem; line-height: 1.6; }
+    .project-stack { display: flex; gap: 0.4rem; flex-wrap: wrap; margin-bottom: 1.25rem; }
+    .stack-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem;
+      padding: 0.2rem 0.5rem;
+      border-radius: 3px;
+      background: rgba(0,170,255,0.08);
+      color: var(--accent2);
+      border: 1px solid rgba(0,170,255,0.15);
+    }
+    .project-link {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--accent);
+      text-decoration: none;
+      letter-spacing: 0.05em;
+      transition: opacity 0.2s;
+    }
+    .project-link:hover { opacity: 0.7; }
+
+    /* VIDEO */
+    .video-container {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .video-placeholder {
+      aspect-ratio: 16/9;
+      background: var(--bg3);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .play-btn {
+      width: 72px; height: 72px;
+      border-radius: 50%;
+      border: 2px solid var(--accent);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--accent);
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+    .video-placeholder p { color: var(--muted); font-size: 0.9rem; }
+    .video-placeholder small {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      color: rgba(125,143,168,0.5);
+    }
+    .video-info { padding: 1.5rem 2rem; }
+    .video-info h3 { margin-bottom: 0.5rem; }
+    .video-info p { color: var(--muted); font-size: 0.9rem; }
+
+    /* REFLECTIONS */
+    .reflections-grid { display: grid; gap: 2rem; }
+    .reflection-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .reflection-header {
+      background: var(--bg3);
+      padding: 1.25rem 1.75rem;
+      display: flex; align-items: center; gap: 1rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .reflection-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--accent);
+      background: rgba(0,229,160,0.1);
+      border: 1px solid rgba(0,229,160,0.2);
+      border-radius: 4px;
+      padding: 0.2rem 0.6rem;
+    }
+    .reflection-header h3 { font-size: 1rem; }
+    .star-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 0;
+    }
+    .star-item {
+      padding: 1.5rem 1.75rem;
+      border-right: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .star-item:last-child { border-right: none; }
+    .star-letter {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 0.3rem;
+      line-height: 1;
+    }
+    .star-label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      margin-bottom: 0.75rem;
+    }
+    .star-item p { font-size: 0.85rem; color: var(--text); line-height: 1.7; }
+
+    /* CONTACT */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 1rem;
+    }
+    .contact-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.5rem;
+      text-decoration: none;
+      transition: all 0.2s;
+      display: flex; flex-direction: column; gap: 0.5rem;
+    }
+    .contact-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+    .contact-icon {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+    .contact-card h4 { font-size: 0.95rem; color: var(--text); }
+    .contact-card p { font-size: 0.8rem; color: var(--muted); }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2rem 4rem;
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 1rem;
+    }
+    footer p {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+    footer span { color: var(--accent); }
+
+    /* DIVIDER */
+    .divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border), transparent);
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    /* ANIMATIONS */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { display: none; }
+      .hero { padding: 7rem 1.5rem 3rem; }
+      section { padding: 4rem 1.5rem; }
+      footer { padding: 1.5rem; }
+      .star-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-logo">kgolomoleba<span style="color:var(--muted)">.</span>dev</div>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#cv">CV</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#interview">Interview</a></li>
+      <li><a href="#reflections">Reflections</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-grid"></div>
+    <div class="hero-glow"></div>
+    <div class="hero-content">
+      <p class="hero-tag">// Work Readiness Portfolio — CPUT 2026</p>
+      <h1>Kgololosego<br/><span>Moleba</span></h1>
+      <p class="hero-sub">Third-year IT student at CPUT specialising in Applications Development. Building real things with Java, Python, React and a lot of curiosity.</p>
+      <div class="hero-links">
+        <a href="#cv" class="btn btn-primary">View My CV</a>
+        <a href="https://github.com/kgolomoleba" target="_blank" class="btn btn-outline">GitHub Profile →</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- GITHUB ACCOUNT -->
+  <section id="about">
+    <div class="reveal">
+      <p class="section-label">// 01 — Evidence</p>
+      <h2 class="section-title">GitHub Student Account</h2>
+      <div class="github-card">
+        <div class="github-avatar">👨🏾‍💻</div>
+        <div class="github-info">
+          <h3>kgolomoleba</h3>
+          <p>Registered with CPUT student email · GitHub Education Partner</p>
+          <div class="github-badges">
+            <span class="badge">Student Account ✓</span>
+            <span class="badge">GitHub Education</span>
+            <span class="badge">40+ Repositories</span>
+            <span class="badge">Active 2022 – Present</span>
+          </div>
+        </div>
+        <a href="https://github.com/kgolomoleba" target="_blank" class="btn btn-outline" style="margin-left:auto">View Profile →</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- CV -->
+  <section id="cv">
+    <div class="reveal">
+      <p class="section-label">// 02 — Evidence</p>
+      <h2 class="section-title">CV — Coded in Markdown</h2>
+      <div class="cv-preview">
+        <div class="cv-header">
+          <div class="dot dot-red"></div>
+          <div class="dot dot-yellow"></div>
+          <div class="dot dot-green"></div>
+          <span class="cv-filename">cv.md — Markdown</span>
+        </div>
+        <div class="cv-body">
+          <pre><span class="md-h1"># Kgololosego Moleba</span>
+<span class="md-bold">### IT Student | Aspiring Software Developer</span>
+
+📞 081 495 6893 | ✉️ dumbdevdiaries@gmail.com
+🔗 github.com/kgolomoleba
+
+<span class="md-h2">## Technical Skills</span>
+| Category          | Technologies                        |
+|-------------------|-------------------------------------|
+| Languages         | Java, Python, JavaScript, SQL       |
+| Backend           | Spring Boot, Maven, REST APIs       |
+| Frontend          | React.js, HTML5, CSS3, JavaScript   |
+| Databases         | MySQL, SQL, Normalisation           |
+| AI & Data         | Data Analysis, ML Workflows         |
+
+<span class="md-h2">## Featured Projects</span>
+### 🔹 BurgerTroops — Full-Stack Web App
+### 🔹 GamingStore — E-Commerce Platform
+### 🔹 Doctor Transcriber — AI Healthcare Tool
+<span class="md-bold">...</span></pre>
+        </div>
+        <div class="cv-cta">
+          <p>Full CV available as a Markdown file in this repository</p>
+          <a href="cv.md" class="btn btn-primary">Open cv.md</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="reveal">
+      <p class="section-label">// 03 — Work</p>
+      <h2 class="section-title">Featured Projects</h2>
+      <div class="projects-grid">
+
+        <div class="project-card">
+          <p class="project-type">Group Project · Full-Stack</p>
+          <h3>BurgerTroops</h3>
+          <p>A full-stack web application built around a real food outlet business concept, featuring order management and admin workflows.</p>
+          <div class="project-stack">
+            <span class="stack-tag">Java</span>
+            <span class="stack-tag">JavaScript</span>
+            <span class="stack-tag">CSS</span>
+            <span class="stack-tag">Maven</span>
+          </div>
+          <a href="https://github.com/kgolomoleba/BurgerTroops" target="_blank" class="project-link">→ View Repository</a>
+        </div>
+
+        <div class="project-card">
+          <p class="project-type">Group Project · Full-Stack</p>
+          <h3>GamingStore</h3>
+          <p>A full-stack e-commerce platform for gaming products, built with a Java backend and React.js frontend by a team of 6 developers.</p>
+          <div class="project-stack">
+            <span class="stack-tag">Java</span>
+            <span class="stack-tag">React.js</span>
+            <span class="stack-tag">CSS</span>
+            <span class="stack-tag">Maven</span>
+          </div>
+          <a href="https://github.com/kgolomoleba/GamingStore" target="_blank" class="project-link">→ View Repository</a>
+        </div>
+
+        <div class="project-card">
+          <p class="project-type">Solo Project · AI</p>
+          <h3>Doctor Transcriber</h3>
+          <p>An AI-powered tool designed to transcribe and process medical consultations, demonstrating practical AI integration for healthcare.</p>
+          <div class="project-stack">
+            <span class="stack-tag">Python</span>
+            <span class="stack-tag">AI</span>
+          </div>
+          <a href="https://github.com/kgolomoleba/doctor-transcriber" target="_blank" class="project-link">→ View Repository</a>
+        </div>
+
+        <div class="project-card">
+          <p class="project-type">Solo Project · Machine Learning</p>
+          <h3>SDG8 Demand Prediction</h3>
+          <p>A machine learning project using predictive modelling for economic demand forecasting, aligned with UN Sustainable Development Goals.</p>
+          <div class="project-stack">
+            <span class="stack-tag">Python</span>
+            <span class="stack-tag">ML</span>
+          </div>
+          <a href="https://github.com/kgolomoleba/SDG8-DEMAND_PREDICTION" target="_blank" class="project-link">→ View Repository</a>
+        </div>
+
+        <div class="project-card">
+          <p class="project-type">Solo Project · Chatbot</p>
+          <h3>Crypto Buddy Chatbot</h3>
+          <p>A conversational chatbot delivering real-time cryptocurrency information, combining NLP concepts with practical application development.</p>
+          <div class="project-stack">
+            <span class="stack-tag">Python</span>
+            <span class="stack-tag">NLP</span>
+          </div>
+          <a href="https://github.com/kgolomoleba/crypto-buddy-chatbot" target="_blank" class="project-link">→ View Repository</a>
+        </div>
+
+        <div class="project-card" style="display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;min-height:200px;">
+          <p style="font-family:'JetBrains Mono',monospace;font-size:0.75rem;color:var(--muted);margin-bottom:0.5rem;">40+ repositories</p>
+          <a href="https://github.com/kgolomoleba" target="_blank" class="btn btn-outline">View All on GitHub →</a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- MOCK INTERVIEW -->
+  <section id="interview">
+    <div class="reveal">
+      <p class="section-label">// 04 — Evidence</p>
+      <h2 class="section-title">Mock Interview Video</h2>
+      <div class="video-container">
+        <div class="video-placeholder">
+          <div class="play-btn">▶</div>
+          <p>Mock Interview — IT / Software Development Role</p>
+          <small>// Paste your YouTube or Google Drive link here after recording</small>
+        </div>
+        <div class="video-info">
+          <h3>Work Readiness Mock Interview</h3>
+          <p>A simulated job interview for a junior software developer position, demonstrating technical knowledge, communication skills, and professional presentation.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- REFLECTIONS -->
+  <section id="reflections">
+    <div class="reveal">
+      <p class="section-label">// 05 — Reflections</p>
+      <h2 class="section-title">STAR Method Reflections</h2>
+      <div class="reflections-grid">
+
+        <!-- REFLECTION 1: MARKDOWN -->
+        <div class="reflection-card">
+          <div class="reflection-header">
+            <span class="reflection-num">R_01</span>
+            <h3>Coding My CV in Markdown</h3>
+          </div>
+          <div class="star-grid">
+            <div class="star-item">
+              <div class="star-letter">S</div>
+              <div class="star-label">Situation</div>
+              <p>As part of my Work Readiness module at CPUT, I was required to create a professional digital portfolio. This included coding my CV using Markdown language and hosting it on GitHub — a format I had not previously used for professional document creation.</p>
+            </div>
+            <div class="star-item">
+              <div class="star-letter">T</div>
+              <div class="star-label">Task</div>
+              <p>I needed to translate my existing Word-based CV into a properly structured Markdown file using GitHub Flavoured Markdown (GFM), ensuring it was readable, professional, and included working hyperlinks to my GitHub repositories and profiles.</p>
+            </div>
+            <div class="star-item">
+              <div class="star-letter">A</div>
+              <div class="star-label">Action</div>
+              <p>I researched GFM syntax and practised using headings, tables, bullet lists, bold text and inline links. I structured my CV systematically — starting with contact details, then education, technical skills, projects and references — iterating until the formatting rendered cleanly on GitHub.</p>
+            </div>
+            <div class="star-item" style="border-right:none;">
+              <div class="star-letter">R</div>
+              <div class="star-label">Result</div>
+              <p>I successfully produced a professional, well-structured CV in Markdown that renders correctly on GitHub. The process gave me a new documentation skill directly applicable to software development — README files, wikis, and pull requests all use the same syntax I now understand confidently.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- REFLECTION 2: MOCK INTERVIEW -->
+        <div class="reflection-card">
+          <div class="reflection-header">
+            <span class="reflection-num">R_02</span>
+            <h3>Mock Interview Video Experience</h3>
+          </div>
+          <div class="star-grid">
+            <div class="star-item">
+              <div class="star-letter">S</div>
+              <div class="star-label">Situation</div>
+              <p>As part of my work readiness training at CPUT, I was required to simulate a real job interview for an IT or software development role and record it as a video to demonstrate professional communication and technical self-presentation.</p>
+            </div>
+            <div class="star-item">
+              <div class="star-letter">T</div>
+              <div class="star-label">Task</div>
+              <p>I needed to record a mock interview that showcased my ability to answer both behavioural and technical questions confidently, present my skills and experience clearly, and conduct myself in a manner appropriate for a professional IT environment.</p>
+            </div>
+            <div class="star-item">
+              <div class="star-letter">A</div>
+              <div class="star-label">Action</div>
+              <p>I prepared by researching common junior developer interview questions, structured my answers using the STAR method, and practised articulating my technical skills and project experience. I set up a professional recording environment and reviewed the footage before finalising my submission.</p>
+            </div>
+            <div class="star-item" style="border-right:none;">
+              <div class="star-letter">R</div>
+              <div class="star-label">Result</div>
+              <p>The experience built my confidence in presenting my technical background clearly and professionally. It highlighted the importance of preparation and structured responses, and gave me practical skills I will apply directly in real job interviews as I enter the IT industry.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- REFLECTION 3: GITHUB PAGES -->
+        <div class="reflection-card">
+          <div class="reflection-header">
+            <span class="reflection-num">R_03</span>
+            <h3>Deploying to GitHub Pages</h3>
+          </div>
+          <div class="star-grid">
+            <div class="star-item">
+              <div class="star-letter">S</div>
+              <div class="star-label">Situation</div>
+              <p>My work readiness assessment required me to publish my digital portfolio as a live, publicly accessible website — not just files stored in a GitHub repository. I needed to use GitHub Pages, a deployment feature I had not previously configured for a personal portfolio.</p>
+            </div>
+            <div class="star-item">
+              <div class="star-letter">T</div>
+              <div class="star-label">Task</div>
+              <p>I needed to create and structure a GitHub repository correctly, build a functional HTML portfolio site, enable and configure GitHub Pages, and ensure the live URL displayed all required content — CV, projects, mock interview video and STAR reflections.</p>
+            </div>
+            <div class="star-item">
+              <div class="star-letter">A</div>
+              <div class="star-label">Action</div>
+              <p>I created a dedicated repository, structured the project with an index.html and cv.md file, then navigated to the repository Settings → Pages to enable deployment from the main branch. I tested the live URL after deployment and verified all links, sections and content rendered correctly.</p>
+            </div>
+            <div class="star-item" style="border-right:none;">
+              <div class="star-letter">R</div>
+              <div class="star-label">Result</div>
+              <p>My portfolio was successfully deployed and is now publicly accessible via a GitHub Pages URL. This gave me hands-on experience with static site deployment — a directly transferable skill for hosting projects, documentation sites and client deliverables in my future career as a developer.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="reveal">
+      <p class="section-label">// 06 — Contact</p>
+      <h2 class="section-title">Get In Touch</h2>
+      <div class="contact-grid">
+        <a href="mailto:dumbdevdiaries@gmail.com" class="contact-card">
+          <span class="contact-icon">Email</span>
+          <h4>dumbdevdiaries@gmail.com</h4>
+          <p>Send me a message</p>
+        </a>
+        <a href="https://github.com/kgolomoleba" target="_blank" class="contact-card">
+          <span class="contact-icon">GitHub</span>
+          <h4>github.com/kgolomoleba</h4>
+          <p>View my repositories</p>
+        </a>
+        <a href="https://www.linkedin.com/in/kgololosego-moleba-6886b9247" target="_blank" class="contact-card">
+          <span class="contact-icon">LinkedIn</span>
+          <h4>kgololosego-moleba</h4>
+          <p>Connect professionally</p>
+        </a>
+        <div class="contact-card" style="cursor:default;">
+          <span class="contact-icon">Phone</span>
+          <h4>081 495 6893</h4>
+          <p>Cape Town, Western Cape · Willing to relocate</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2026 <span>Kgololosego Moleba</span> · CPUT Work Readiness Portfolio</p>
+    <p>Built with <span>HTML · CSS · GitHub Pages</span></p>
+  </footer>
+
+  <script>
+    // Scroll reveal
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('visible'); }
+      });
+    }, { threshold: 0.1 });
+    reveals.forEach(r => observer.observe(r));
+  </script>
+</body>
+</html>
